@@ -47,6 +47,9 @@ module BioBgzf
     if data.bytesize != in_size
       raise "Expected #{in_size} bytes from BGZF block at #{pos}, but got #{data.bytesize} bytes!"
     end
+    if Zlib.crc32(data) != crc
+      raise "CRC error!"
+    end
     return data
   end
 
