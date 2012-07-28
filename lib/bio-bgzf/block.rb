@@ -8,7 +8,7 @@ module BioBgzf
     data
   end
 
-  def read_block(f)
+  def read_bgzf_block(f)
     hstart = f.read(12)
     return nil if hstart == nil # EOF?
     magic, gzip_extra_length = hstart.unpack('Vxxxxxxv')
@@ -41,7 +41,7 @@ module BioBgzf
   end
 
   def decompress_block(f)
-    cdata, in_size, crc = read_block(f)
+    cdata, in_size, crc = read_bgzf_block(f)
     return nil if cdata == nil
     data = unpack(cdata)
     if data.bytesize != in_size
