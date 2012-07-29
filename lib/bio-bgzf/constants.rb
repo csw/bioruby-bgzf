@@ -1,6 +1,6 @@
-module Bgzf
-
-  module Constants 
+module Bio
+  module BGZF
+    
     ID1   = 31
     ID2   = 139
     CM    = 8
@@ -14,6 +14,6 @@ module Bgzf
     XFL   = 0
     OS    = 255
     XLEN  = 6 
+
   end
- 
 end

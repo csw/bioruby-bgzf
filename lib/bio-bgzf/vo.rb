@@ -1,4 +1,4 @@
-module BioBgzf
+module Bio::BGZF
   def vo_block_offset(vo)
     vo >> 16
   end

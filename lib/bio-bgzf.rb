@@ -1,7 +1,6 @@
 require 'bio-bgzf/constants'
 require 'bio-bgzf/pack'
 require 'bio-bgzf/unpack'
-require 'bio-bgzf/bgzf_io'
 require 'bio-bgzf/block'
 require 'bio-bgzf/reader'
 require 'bio-bgzf/vo'

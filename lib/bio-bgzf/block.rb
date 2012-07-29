@@ -1,12 +1,4 @@
-module BioBgzf
-
-  def read_bytes(n)
-    data = f.read(n)
-    if data == nil
-      raise "Expected to read #{n} bytes at #{f.tell} but at EOF!"
-    end
-    data
-  end
+module Bio::BGZF
 
   def read_bgzf_block(f)
     hstart = f.read(12)
@@ -39,23 +31,21 @@ module BioBgzf
 
     return compressed_data, input_size, crc32
   end
+  module_function :read_bgzf_block
 
   def decompress_block(f)
-    cdata, in_size, crc = read_bgzf_block(f)
+    cdata, in_size, expected_crc = read_bgzf_block(f)
     return nil if cdata == nil
+    crc = Zlib.crc32(cdata, 0)
+    if crc != expected_crc
+      raise "CRC error: expected #{expected_crc.to_s(16)}, got #{crc.to_s(16)}"
+    end
     data = unpack(cdata)
     if data.bytesize != in_size
       raise "Expected #{in_size} bytes from BGZF block at #{pos}, but got #{data.bytesize} bytes!"
     end
-    if Zlib.crc32(data) != crc
-      raise "CRC error!"
-    end
     return data
   end
+  module_function :decompress_block
 
-  def decompress_block_at(f, pos)
-    f.seek(pos)
-    decompress_block(f)
-  end
-  
 end

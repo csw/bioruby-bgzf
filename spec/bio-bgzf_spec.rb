@@ -2,10 +2,10 @@ require 'rspec/expectations'
 require 'bio-bgzf'
 require 'tempfile'
 
-describe "BioBgzf" do
+describe Bio::BGZF do
   it "should be able to pack strings to BGZF blocks" do
-    BioBgzf.should respond_to(:pack).with(1).argument
-    BioBgzf.pack("asdfghjkl").should be_instance_of String
+    Bio::BGZF.should respond_to(:pack).with(1).argument
+    Bio::BGZF.pack("asdfghjkl").should be_instance_of String
   end
 
   it "should be able to iteratively read BGZF blocks from stream" do
@@ -14,13 +14,14 @@ describe "BioBgzf" do
 
     file = Tempfile.new 'bgzfstring'
     str.chars.each_slice(42).map(&:join).each do |s|
-        file.write(BioBgzf.pack s)
+        file.write(Bio::BGZF.pack s)
     end
     file.flush
     file.rewind
 
     str2 = ''
-    file.each_bgzf {|block| str2 += BioBgzf.unpack(block) }
+    r = Bio::BGZF::Reader.new(file)
+    r.each_block {|block| str2 += block }
 
     str2.should == str
   end

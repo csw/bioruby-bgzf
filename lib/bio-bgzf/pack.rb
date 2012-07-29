@@ -1,6 +1,6 @@
 require 'zlib'
 
-module BioBgzf
+module Bio::BGZF
 
   # Packs +str+ into a BGZF block using 
   # given compression +level+.
@@ -11,8 +11,6 @@ module BioBgzf
 
     crc32 = Zlib.crc32 cdata, 0
     isize = str.length
-
-    include Bgzf::Constants
 
     bsize = cdata.length + 19 + XLEN
 
@@ -35,5 +33,5 @@ module BioBgzf
 
      array.pack('CCCCVCCvCCvva*VV')
   end
-  extend self
+  module_function :pack
 end
