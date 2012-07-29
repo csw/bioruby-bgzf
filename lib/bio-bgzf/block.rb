@@ -36,13 +36,13 @@ module Bio::BGZF
   def decompress_block(f)
     cdata, in_size, expected_crc = read_bgzf_block(f)
     return nil if cdata == nil
-    crc = Zlib.crc32(cdata, 0)
-    if crc != expected_crc
-      raise "CRC error: expected #{expected_crc.to_s(16)}, got #{crc.to_s(16)}"
-    end
     data = unpack(cdata)
     if data.bytesize != in_size
       raise "Expected #{in_size} bytes from BGZF block at #{pos}, but got #{data.bytesize} bytes!"
+    end
+    crc = Zlib.crc32(data, 0)
+    if crc != expected_crc
+      raise "CRC error: expected #{expected_crc.to_s(16)}, got #{crc.to_s(16)}"
     end
     return data
   end

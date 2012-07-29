@@ -9,7 +9,7 @@ module Bio::BGZF
     cdata = zs.deflate str, Zlib::FINISH
     zs.close
 
-    crc32 = Zlib.crc32 cdata, 0
+    crc32 = Zlib.crc32 str, 0
     isize = str.length
 
     bsize = cdata.length + 19 + XLEN

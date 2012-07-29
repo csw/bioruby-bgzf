@@ -8,6 +8,15 @@ describe Bio::BGZF do
     Bio::BGZF.pack("asdfghjkl").should be_instance_of String
   end
 
+  it "should be able to read BGZF blocks from a samtools file" do
+    File.open("test/data/mm8.chrM.maf.gz") do |f|
+      r = Bio::BGZF::Reader.new(f)
+      r.each_block do |block|
+        block.size.should <= 65536
+      end
+    end
+  end
+
   it "should be able to iteratively read BGZF blocks from stream" do
     str = ''
     1000.times { str += (Random.rand(26) + 65).chr }
