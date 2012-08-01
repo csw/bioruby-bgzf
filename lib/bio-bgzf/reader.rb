@@ -48,10 +48,14 @@ module Bio::BGZF
       end
     end
 
+    # Iterates over the blocks in a BGZF file, yielding [block, vo] pairs where 
     def each_block
       if block_given?
-        while b = read_block
-          yield b
+        while true
+          pos = tell
+          b = read_block
+          break unless b
+          yield b, pos
         end
       else
         enum_for(:each_block)
