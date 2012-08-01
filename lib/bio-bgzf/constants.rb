@@ -13,7 +13,9 @@ module Bio
     MTIME = 0
     XFL   = 0
     OS    = 255
-    XLEN  = 6 
+    XLEN  = 6
+
+    MAX_BYTES = 65536
 
   end
 end
