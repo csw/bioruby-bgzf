@@ -11,8 +11,10 @@ describe Bio::BGZF do
   it "should be able to read BGZF blocks from a samtools file" do
     File.open("test/data/mm8.chrM.maf.gz") do |f|
       r = Bio::BGZF::Reader.new(f)
-      r.each_block do |block|
+      r.each_block do |block, pos|
         block.size.should <= 65536
+        pos.should.is_a? Integer
+        Bio::BGZF::vo_data_offset(pos).should == 0
       end
     end
   end
