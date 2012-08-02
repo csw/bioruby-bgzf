@@ -2,8 +2,8 @@
 
 [![Build Status](https://secure.travis-ci.org/csw/bioruby-bgzf.png)](http://travis-ci.org/csw/bioruby-bgzf)
 
-This library provides support for the [BGZF][] (Blocked GZip Format)
-in Ruby. BGZF, originally defined as part of the [SAM/BAM][]
+This library provides support for [BGZF][] (Blocked GZip Format) in
+Ruby. BGZF, originally defined as part of the [SAM/BAM][]
 specification, is used to compress record-oriented bioinformatics data
 in a way that facilitates random access, unlike plain gzip. A BGZF
 file consists of contatenated 64 KB blocks, each an independent gzip

@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/csw/bioruby-bgzf"
   gem.license = "MIT"
   gem.summary = %Q{Reading/writing BGZF blocks}
-  gem.description = %Q{BGZF compression is used nowadays only for providing random access to BAM format. However, it is completely independent from the format, and can be used for arbitrary data format. The gem allows to read BGZF blocks from streams and pack strings into blocks, aiming to facilitate introducing BGZF compression for Ruby users.}
+  gem.description = %Q{This library provides support for BGZF (Blocked GZip Format) in Ruby. BGZF, originally defined as part of the SAM/BAM specification, is used to compress record-oriented data in a way that facilitates random access, unlike plain gzip. BGZF is principally used for bioinformatics data but would be useful in other contexts as well.}
   gem.email = "cswh@umich.edu"
   gem.authors = ["Artem Tarasov", "Clayton Wheeler"]
   # dependencies defined in Gemfile
